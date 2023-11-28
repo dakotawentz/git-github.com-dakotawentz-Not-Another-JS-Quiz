@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     const startButton = document.getElementById("start-button");
-    const nextButton = document.getElementById("next-button");
     const timerElement = document.getElementById("timer");
     const questionElement = document.getElementById("question");
     const heroContainer = document.getElementById("hero-container");
@@ -16,10 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Event listener for the Start Quiz button
     startButton.addEventListener("click", startQuiz);
     // viewHighScoreButton.addEventListener("click", viewHighScore);
-    nextButton.addEventListener("click", () => {
-        currentQuestionIndex++;
-        setNextQuestion();
-    });
 
     // function viewHighScore() {
 
@@ -31,24 +26,26 @@ document.addEventListener("DOMContentLoaded", function () {
         // questionElement.classList.remove("hide")
         questionContainer.style.display = "block";
         shuffledQuestions = questions.sort(() => Math.random() - 0.5)
+        console.log(Math.random() - 0.5);
         currentQuestionIndex = 0
         setNextQuestion();
         // Hide hero container and show question container
         heroContainer.style.display = "none";
+        
 
         // Set up timer
-        let timeLeft = 60;
+        // let timeLeft = 60;
 
-        const timerInterval = setInterval(function () {
-            timerElement.textContent = "Time Left: " + timeLeft + " seconds";
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                // Call a function to end the quiz or do something else
-                endQuiz();
-            } else {
-                timeLeft--;
-            }
-        }, 1000);
+        // const timerInterval = setInterval(function () {
+        //     timerElement.textContent = "Time Left: " + timeLeft + " seconds";
+        //     if (timeLeft <= 0) {
+        //         clearInterval(timerInterval);
+        //         // Call a function to end the quiz or do something else
+        //         endQuiz();
+        //     } else {
+        //         timeLeft--;
+        //     }
+        // }, 1000);
     }
 
 
@@ -58,11 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showQuestion(question) {
+        answerButtonsElement.innerHTML = "";
         questionElement.innerText = question.question;
         question.answers.forEach(answer => {
             const button = document.createElement("button");
             button.innerText = answer.text;
-            button.classList.add("btn");
+            button.classList.add("btn", "btn-primary");
             if (answer.correct) {
                 button.dataset.correct = answer.correct
             }
@@ -87,12 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
         setStatusClass(document.body, correct)
         Array.from(answerButtonsElement.children).forEach(button => {
             setStatusClass(button, button.dataset.correct)
-        })
-        if(shuffledQuestions.length > currentQuestionIndex + 1) {
-        nextButton.classList.remove("hide")
-        } else {
-            startButton.innerText = "Restart"
-        }
+        });
+        currentQuestionIndex ++;
+        setNextQuestion();
     }
 
     function setStatusClass(element, correct) {
@@ -129,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ]
         },
         {
-            question: "Where should you go to initiate nodejs?",
+            question: "random question 3?",
             answers: [
                 { text: "answer1", correct: true },
                 { text: "answer2", correct: false },
@@ -138,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ]
         },
         {
-            question: "Where should you go to initiate nodejs?",
+            question: "random question 4?",
             answers: [
                 { text: "answer1", correct: true },
                 { text: "answer2", correct: false },
@@ -147,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ]
         },
         {
-            question: "Where should you go to initiate nodejs?",
+            question: "random question 5?",
             answers: [
                 { text: "answer1", correct: true },
                 { text: "answer2", correct: false },
@@ -156,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ]
         },
         {
-            question: "Where should you go to initiate nodejs?",
+            question: "Where?",
             answers: [
                 { text: "answer1", correct: true },
                 { text: "answer2", correct: false },
