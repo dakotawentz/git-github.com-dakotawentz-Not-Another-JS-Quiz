@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const heroContainer = document.getElementById("hero-container");
     const questionContainer = document.getElementById("question-container");
     const answerButtonsElement = document.getElementById("answer-buttons");
-    const username = document.getElementById("username");
+    // const username = document.getElementById("username");
     const initials = document.getElementById("initials");
     const viewHighScores = JSON.parse(localStorage.getItem('high-scores'))
     const scoreText = document.getElementById("score");
@@ -87,10 +87,14 @@ const questions = [
 
     function endQuiz() {
         questionElement.textContent = "";
+        heroContainer.style.display = "block";
+        
     alert("Quiz ended!");
 } 
 
 viewHighScoreButton.addEventListener("click", viewHighScores);
+
+// function 
     
 function setNextQuestion() {
     if (currentQuestionIndex < finalQuestionIndex) {
@@ -187,7 +191,7 @@ function submitScore() {
         alert("Initials cannot be blank");
         return false;
     } else {
-        const savedHighscores = JSON.parse(localStorage.getItem("savedHighscores")) || [];
+        const savedHighscores = JSON.parse(localStorage.getItem("high-scores")) || [];
         const currentUser = initials.value.trim();
         const currentHighscore = {
             name : currentUser,
@@ -195,32 +199,14 @@ function submitScore() {
         };
         
         savedHighscores.push(currentHighscore);
-        localStorage.setItem("savedHighscores", JSON.stringify(savedHighscores));
+        localStorage.setItem("high-scores", JSON.stringify(savedHighscores));
         generateHighscores();
     }
 }
-const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+const highScores = JSON.parse(localStorage.getItem("high-scores")) || [];
 
 submitScoreButton.addEventListener("click", submitScore);
 
-function submitScore() {
-    const userInput = initials.value.trim();
-
-         if(initials.value === "") {
-        alert("Initials cannot be blank");
-        return false;
-    } else {
-        const savedHighscores = JSON.parse(localStorage.getItem("savedHighscores")) || [];
-        const currentHighscore = {
-            name : userInput,
-            score : score
-        };
-        
-        savedHighscores.push(currentHighscore);
-        localStorage.setItem("savedHighscores", JSON.stringify(savedHighscores));
-        // generateHighscores();
-    }
-}
 
 // function generateHighscores () {
 //     saveHighScore = e => {
